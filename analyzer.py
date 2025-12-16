@@ -137,8 +137,22 @@ def analyze_call_audio(audio_path, audio_format="mp3"):
             content = content.replace("```", "")
             
         content = content.strip()
-        
-        return json.loads(content)
+
+        data = json.loads(content)
+
+        # Recalculate total_score in case GPT summed incorrectly
+        scores = [
+            data.get('greeting_score', 0),
+            data.get('needs_analysis_score', 0),
+            data.get('speech_score', 0)
+        ]
+        for key in ['presentation_score', 'closing_score', 'summary_score', 'objection_handling_score']:
+            score = data.get(key)
+            if score != "n/a" and score is not None:
+                scores.append(int(score))
+        data['total_score'] = sum(scores)
+
+        return data
         
     except Exception as e:
         logging.error(f"CRITICAL ERROR in analyze_call_audio: {type(e).__name__}: {e}", exc_info=True)
