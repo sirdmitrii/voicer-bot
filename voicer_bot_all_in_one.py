@@ -207,6 +207,16 @@ def analyze_call_audio(audio_path, audio_format="mp3"):
 
         data = json.loads(content)
 
+        # Force appropriate "n/a" scores based on comments if GPT assigned numbers incorrectly
+        if data.get('presentation_comment') and 'no objective need' in data.get('presentation_comment', '').lower():
+            data['presentation_score'] = "n/a"
+        if data.get('closing_comment') and 'connection lost' in data.get('closing_comment', '').lower():
+            data['closing_score'] = "n/a"
+        if data.get('summary_comment') and 'connection lost' in data.get('summary_comment', '').lower():
+            data['summary_score'] = "n/a"
+        if data.get('objection_handling_comment') and 'no objections' in data.get('objection_handling_comment', '').lower():
+            data['objection_handling_score'] = "n/a"
+
         # Recalculate total_score in case GPT summed incorrectly
         scores = [
             data.get('greeting_score', 0),
