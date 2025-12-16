@@ -1,0 +1,23 @@
+# Secrets
+credentials.json
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+
+# Media / Temp
+temp_*
+*.mp3
+*.ogg
+*.wav
+*.log
