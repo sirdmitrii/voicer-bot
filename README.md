@@ -18,7 +18,7 @@
 
 ### 2. Клонирование репозитория
 ```bash
-git clone https://github.com/ВАШ_НИК/voicer-bot.git
+git clone https://github.com/sirdmitrii/voicer-bot.git
 cd voicer-bot
 ```
 
